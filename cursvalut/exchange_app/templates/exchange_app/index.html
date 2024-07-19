@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="wrapper">
+
+        <div class="page d-flex align-items-center">
+
+        <div class="container">
+
+            <div class="card box-shadow m-2 form-wrap ">
+
+                <div class="card-header text-center">
+                    <h1>Курсы</h1>
+                    {% for name, value in currencies.items %}
+                        {% if name != 'Рубли' %}
+                        <h6>{{name}} - {{value}}</h6>
+                        {% endif %}
+                    {% endfor %}
+                    <h2>Конвертер валют</h2>
+                </div>
+
+
+                <form id="form" class="p-3 card-body text-center" action="" method="POST">
+                   {% csrf_token %}
+                    <div class="row">
+
+                        <div class="col-md-4 mb-0">
+                            <label for="amount">Сумма</label>
+                            <input id="amount" type="number" class="form-control" placeholder="Введите число" {% if from_amount %} value="{{ from_amount }}" {% endif %} name="from-amount">
+                        </div>
+
+
+                        <div class="col-md-4 mb-0">
+                            <label for="amount">Отдаем</label>
+                            <select class="form-control" id="from_curr" name="from-curr" value="{{ from_curr }}">
+
+                                {% for curr in currencies %}
+                                    <option value="{{ curr }}"
+                                            {% if from_curr == curr %} selected {% endif %}> {{ curr }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+
+
+                        <div class="col-md-4 mb-0">
+                            <label for="amount">Получаем</label>
+                            <select class="form-control" id="to_curr" name="to-curr" value="{{ to_curr }}">
+                                {% for curr in currencies %}
+                                    <option value="{{ curr }}" {% if to_curr == curr %} selected {% endif %}> {{ curr }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                    {% if converted_amount %}
+                    <div class="card result">
+                      <div class="card-body">
+                          Отдаем {{ from_curr }} получаем {{ to_curr }}
+                          <br><b>{{ converted_amount }}</b>
+                      </div>
+                    </div>
+                    {% endif %}
+                    <div class="submit-btn mt-3">
+                        <button type="submit" class="btn btn-primary">Рассчитать</button>
+                    </div>
+                </form>
+            </div>
+
+    </div>
+
+
+
+
+
+
+        </div>
+
+        <div class="footer">
+            <div class="container">
+            <div class="row">
+                <div class="footer2 col-12">
+            <p>&copy; Все права защищены.
+            <br>Вся информация несет ознакомительный характер,
+                администрация сайта не несет ответственности за предоставленную информацию</p>
+                </div>
+        </div>
+        </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
