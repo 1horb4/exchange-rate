@@ -17,7 +17,6 @@ def pars_curs(url, tag):
         'User-Agent': os.environ.get('USER-AGENT')
     }
 
-
     response = requests.get(url, headers=headers)
     src = response.text
     soup = BeautifulSoup(src, 'lxml')

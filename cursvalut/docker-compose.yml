@@ -1,0 +1,6 @@
+services:
+  django-exchange-rate:
+    build:
+      context: .
+    ports:
+      - "8000:80"
